@@ -1,25 +1,24 @@
+""" app pizza """
 from flask import Flask, request, redirect
 import persistencia
+import utils
 
 app = Flask(__name__)
 @app.route("/pizza", methods=['POST'])
 def pizza():
+    """ Se obtienen los datos a guardar """
     nombre = request.form.get("nombre")
     apellidos = request.form.get("apellidos")
-    printInConsole(nombre, apellidos)
-    saveInFile(nombre, apellidos)
-   
+    print_in_console(nombre, apellidos)
+    save_in_file(nombre, apellidos)
     return redirect("http://localhost/PizzaHouse/solicita_pedido.html", code=302)
 
-def printInConsole(nombre, apellidos):
+def print_in_console(nombre, apellidos):
+    """ Se imprime en consola """
     print(nombre)
     print(apellidos)
 
-def saveInFile(nombre, apellidos):
-    cleanFile()
+def save_in_file(nombre, apellidos):
+    """ Guardar en el fichero """
+    utils.clean_file()
     persistencia.guardar_pedido(nombre, apellidos)
-
-def cleanFile():
-    file = open("pedidos.txt", "w", encoding="utf-8")
-    file.write("")
-    file.close()
