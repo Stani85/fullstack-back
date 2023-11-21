@@ -1,5 +1,5 @@
 """ app pizza """
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, Response
 import persistencia
 import utils
 
@@ -22,3 +22,13 @@ def save_in_file(nombre, apellidos):
     """ Guardar en el fichero """
     utils.clean_file()
     persistencia.guardar_pedido(nombre, apellidos)
+
+@app.route("/checksize",methods=['POST'])
+def check_aize():
+    """ Comprueba disponibilidad de un tamaño de pizza. """
+    size = request.form.get("size")
+    if(size == "S"):
+        mensaje = "No disponible"
+    else:
+        mensaje = "Disponible"
+    return Response(mensaje, 200, {'Access-Control-Allow-Origin': '*'})
