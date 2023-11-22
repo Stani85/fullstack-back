@@ -27,7 +27,7 @@ def save_in_file(nombre, apellidos):
 def check_aize():
     """ Comprueba disponibilidad de un tamaño de pizza. """
     size = request.form.get("size")
-    if size == "S":
+    if(size == "S"):
         mensaje = "No disponible"
     else:
         mensaje = "Disponible"
